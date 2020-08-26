@@ -79,9 +79,9 @@ class Output extends Component {
         while (isNaN(res[i].substr(j,1))) {
           j++;
         }
-        var kode = res[i].substr(0,j)
-        var noAwal = res[i].substr(j,x-j)
-        var noAkhir = res[i].substr(x+1,y-x-1)
+        var kode = res[i].substr(0,j);
+        var noAwal = Number(res[i].substr(j,x-j));
+        var noAkhir = Number(res[i].substr(x+1,y-x-1));
 
         this.props.handler("kode",kode);
         this.props.handler("noAwal",noAwal)
@@ -89,6 +89,13 @@ class Output extends Component {
         this.proses2(kode,noAwal,noAkhir);
       }
     }
+  }
+
+  copyContent(){
+    document.getElementById("out").removeAttribute("disabled");
+    document.getElementById("out").select();
+    document.execCommand('copy');
+    document.getElementById("out").setAttribute("disabled","");
   }
 
   render(){
@@ -101,6 +108,7 @@ class Output extends Component {
         <textarea id="out" name="output" rows="10" cols="75" disabled></textarea>
         <br />
         <button onClick={this.clr} type="button" name="clear" className="btn btn-danger">Clear</button>
+        <button onClick={this.copyContent} type="button" name="copy" className="btn btn-info">Copy</button>
       </>
     );
   }
