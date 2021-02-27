@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Output from './Output';
+import { connect } from 'react-redux';
 
 class Input extends Component {
   constructor(props){
@@ -72,7 +73,7 @@ class Input extends Component {
                     <textarea id="in" name="in" rows="6" cols="30" onChange={e => this.handleChange("in",e)} placeholder="A1-100"></textarea>
                   </td>
                   <td rowSpan="4" align="center">
-                    <button onClick={this.prosesQry} type="button" name="prosesqry" className="btn btn-primary">ProsesQuery</button>
+                    <button onClick={this.prosesQry} type="button" name="prosesqry" className="btn btn-primary">Proses Query</button>
                     <br />
                     <button onClick={this.rubahRender} type="button" name="rubahrender" className="rend btn btn-info">Manual Input</button>
                   </td>
@@ -178,4 +179,18 @@ class Input extends Component {
   }
 }
 
-export default Input;
+const mapStateToProps = (state) => {
+  return state;
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleChange : (store, e) => {
+      const eventTarget = e.target.value;
+      const action = { type: "handleChange", store: store, value: eventTarget }
+      dispatch(action);
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Input);
